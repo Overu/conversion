@@ -9,9 +9,11 @@
 
   <properties>
     <android.platform.version>4.1.1.4</android.platform.version>
+    <guice.version>3.0</guice.version>
   </properties>
 
   <dependencies>
+    <!-- android sdk -->  
     <dependency>
       <groupId>com.google.android</groupId>
       <artifactId>android</artifactId>
@@ -28,16 +30,43 @@
         </exclusion>
       </exclusions>
     </dependency>
+
+    <!-- guice -->
+    <dependency>
+      <groupId>com.google.inject</groupId>
+      <artifactId>guice</artifactId>
+      <version>${guice.version}</version>
+      <classifier>no_aop</classifier>
+    </dependency>
+    <!--<dependency>
+      <groupId>com.google.inject</groupId>
+      <artifactId>guice</artifactId>
+      <version>${guice.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>com.google.inject.extensions</groupId>
+      <artifactId>guice-servlet</artifactId>
+      <version>${guice.version}</version>
+    </dependency>
+     <dependency>
+      <groupId>com.google.inject.extensions</groupId>
+      <artifactId>guice-multibindings</artifactId>
+      <version>${guice.version}</version>
+    </dependency> 
+    <dependency>
+      <groupId>com.google.inject.extensions</groupId>
+      <artifactId>guice-assistedinject</artifactId>
+      <version>${guice.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>com.google.inject.extensions</groupId>
+      <artifactId>guice-persist</artifactId>
+      <version>${guice.version}</version>
+    </dependency>-->
     <dependency>
       <groupId>org.roboguice</groupId>
       <artifactId>roboguice</artifactId>
       <version>2.0</version>
-    </dependency>
-    <dependency>
-      <groupId>com.google.inject</groupId>
-      <artifactId>guice</artifactId>
-      <version>3.0</version>
-      <classifier>no_aop</classifier>
     </dependency>
   </dependencies>
 
