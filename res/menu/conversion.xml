@@ -1,29 +1,8 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android" >
-
     <item
-        android:id="@+id/type1"
-        android:orderInCategory="1"
-        android:showAsAction="ifRoom|withText"
-        android:title="@string/longitude"/>
-    <item
-        android:id="@+id/type2"
-        android:orderInCategory="2"
-        android:showAsAction="ifRoom|withText"
-        android:title="@string/longitude"/>
-    <item
-        android:id="@+id/type3"
-        android:orderInCategory="3"
-        android:showAsAction="never"
-        android:title="@string/longitude"/>
-    <item
-        android:id="@+id/type4"
-        android:orderInCategory="4"
-        android:showAsAction="never"
-        android:title="@string/longitude"/>
-    <item
-        android:id="@+id/type5"
+        android:id="@+id/spinner"
         android:orderInCategory="5"
-        android:showAsAction="never"
-        android:title="@string/longitude"/>
-
+        android:title="@string/menu_spinner"
+        android:showAsAction="ifRoom|withText"
+        android:actionLayout="@layout/menu_spinner"/>
 </menu>

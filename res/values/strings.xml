@@ -5,6 +5,8 @@
     <string name="action_settings">Settings</string>
     <string name="hello_world">Conversion!</string>
     
+    <string name="menu_spinner">menu_spinner</string>
+    
     <string name="longitude">longitude</string>
     <string name="area">area</string>
     

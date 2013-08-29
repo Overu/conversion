@@ -1,6 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string-array name="types">
+    <string-array name="conTypeNames">
+          <item>长度</item>
+          <item>面积</item>
+    </string-array>
+    
+    <string-array name="MKS">
+        <item>公制</item>
+        <item>市制</item>
+    </string-array>    
+    <string-array name="MKSbyEn">
+        <item>英制</item>
+        <item>市制</item>
     </string-array>
     
     <!-- <string-array name="types">
