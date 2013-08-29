@@ -1,17 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string-array name="conTypeNames">
-          <item>长度</item>
-          <item>面积</item>
-    </string-array>
-    
     <string-array name="MKS">
         <item>公制</item>
-        <item>市制</item>
-    </string-array>    
-    <string-array name="MKSbyEn">
         <item>英制</item>
         <item>市制</item>
+    </string-array>    
+    
+    <string-array name="longitude_MKS_0">
+        <item>ly</item>
+        <item>AU</item>
+        <item>km</item>
+        <item>m</item>
+        <!-- <item>dm</item>
+        <item>cm</item>
+        <item>mm</item>
+        <item>µm</item>
+        <item>nm</item>
+        <item>Å</item> -->
+    </string-array>
+    <string-array name="longitude_MKS_1">
+        <item>nmi</item>
+        <item>mi</item>
+        <item>fg</item>
+        <item>fm</item>
+        <!-- <item>yd</item>
+        <item>ft</item>
+        <item>in</item> -->
     </string-array>
     
     <!-- <string-array name="types">
