@@ -3,6 +3,7 @@ package com.overu.conversion.fragment;
 import com.google.inject.Inject;
 
 import com.overu.conversion.R;
+import com.overu.conversion.view.ConversionSpinner;
 
 import java.util.ArrayList;
 
@@ -36,9 +37,9 @@ public class PubFragment extends RoboFragment {
   }
 
   @InjectView(R.id.spinner_MKS)
-  Spinner mSpinnerMKS;
+  ConversionSpinner mSpinnerMKS;
   @InjectView(R.id.spinner_MKSEn)
-  Spinner mSpinnerMKSEn;
+  ConversionSpinner mSpinnerMKSEn;
 
   @Inject
   Application context;
@@ -76,6 +77,8 @@ public class PubFragment extends RoboFragment {
     // mSpinnerMKS.getChildAt(i).setVisibility(View.VISIBLE);
     // mSpinnerMKSEn.getChildAt(i).setVisibility(View.VISIBLE);
     // }
+    View view = mSpinnerAdapterMKS.getView(0, null, null);
+    View dropDownView = mSpinnerAdapterMKS.getDropDownView(0, null, null);
     ArrayList<View> touchables = mSpinnerMKS.getTouchables();
     if (mSpinnerMKS == spinner) {
       mSpinnerMKS.getSelectedView().setVisibility(View.INVISIBLE);

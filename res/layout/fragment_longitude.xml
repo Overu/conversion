@@ -14,7 +14,7 @@
         android:layout_weight="1"
         android:orientation="vertical" >
 
-        <Spinner
+        <com.overu.conversion.view.ConversionSpinner
             android:id="@+id/spinner_MKS"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
@@ -33,7 +33,7 @@
         android:layout_weight="1"
         android:orientation="vertical" >
 
-        <Spinner
+        <com.overu.conversion.view.ConversionSpinner
             android:id="@+id/spinner_MKSEn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
