@@ -5,6 +5,9 @@ import com.google.inject.Singleton;
 import com.google.inject.TypeLiteral;
 import com.google.inject.name.Names;
 
+import com.overu.conversion.fragment.AreaFragment;
+import com.overu.conversion.fragment.LongitudeFragment;
+import com.overu.conversion.fragment.PubFragment;
 import com.overu.conversion.toolutils.Area;
 import com.overu.conversion.toolutils.ConversionType;
 import com.overu.conversion.toolutils.Longitude;
@@ -15,13 +18,19 @@ import java.util.Set;
 
 public class ConversionModule extends AbstractModule {
 
+  public <T> void bindKey(Class<T> bind, int id, Class<? extends T> to) {
+    bind(bind).annotatedWith(Names.named(id + "")).to(to).in(Singleton.class);
+  }
+
   @Override
   protected void configure() {
     requestStaticInjection(ConversionType.class);
     bind(TypeFactory.class).asEagerSingleton();
 
-    bind(ConversionType.class).annotatedWith(Names.named(R.string.longitude + "")).to(Longitude.class).in(Singleton.class);
-    bind(ConversionType.class).annotatedWith(Names.named(R.string.area + "")).to(Area.class).in(Singleton.class);
+    bindKey(ConversionType.class, R.string.longitude, Longitude.class);
+    bindKey(ConversionType.class, R.string.area, Area.class);
+    // bind(ConversionType.class).annotatedWith(Names.named(R.string.longitude + "")).to(Longitude.class).in(Singleton.class);
+    // bind(ConversionType.class).annotatedWith(Names.named(R.string.area + "")).to(Area.class).in(Singleton.class);
 
     bind(new TypeLiteral<Set<Class<? extends ConversionType>>>() {
     }).toInstance(new HashSet<Class<? extends ConversionType>>() {
@@ -30,5 +39,10 @@ public class ConversionModule extends AbstractModule {
         add(Area.class);
       }
     });
+
+    bindKey(PubFragment.class, R.string.longitude, LongitudeFragment.class);
+    bindKey(PubFragment.class, R.string.area, AreaFragment.class);
+    // bind(PubFragment.class).annotatedWith(Names.named(R.string.longitude + "")).to(LongitudeFragment.class).in(Singleton.class);
+    // bind(PubFragment.class).annotatedWith(Names.named(R.string.area + "")).to(AreaFragment.class).in(Singleton.class);
   }
 }
