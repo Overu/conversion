@@ -1,9 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string-array name="MKS">
+    <string-array name="MKS_0">
         <item>公制</item>
+        <item>市制</item>
+    </string-array>    
+    <string-array name="MKS_1">
         <item>英制</item>
         <item>市制</item>
+    </string-array>    
+    <string-array name="MKS_2">
+        <item>公制</item>
+        <item>英制</item>
     </string-array>    
     
     <string-array name="longitude_MKS_0">

@@ -3,10 +3,8 @@ package com.overu.conversion.fragment;
 import com.google.inject.Inject;
 
 import com.overu.conversion.R;
+import com.overu.conversion.adapter.ConversionArrayAdapter;
 import com.overu.conversion.view.ConversionSpinner;
-
-import java.util.ArrayList;
-
 import android.app.Application;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -14,9 +12,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
-import android.widget.ArrayAdapter;
-import android.widget.Spinner;
-import android.widget.SpinnerAdapter;
 import roboguice.fragment.RoboFragment;
 import roboguice.inject.InjectView;
 
@@ -26,7 +21,7 @@ public class PubFragment extends RoboFragment {
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-      PubFragment.this.switchSpinnerItem(parent);
+      PubFragment.this.switchSpinnerItem(parent, position);
     }
 
     @Override
@@ -44,19 +39,14 @@ public class PubFragment extends RoboFragment {
   @Inject
   Application context;
 
-  private SpinnerAdapter mSpinnerAdapterMKS;
-  private SpinnerAdapter mSpinnerAdapterMKSEn;
+  private int mLeftCurResId = 0;
+  private int mRightCurResId = 0;
+  private boolean mLazySelect = false;
 
   @Override
   public void onActivityCreated(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-    ConversionSpinnerSelectedItemHandle spinnerSelectedItemHandle = new ConversionSpinnerSelectedItemHandle();
-    mSpinnerAdapterMKS = ArrayAdapter.createFromResource(context, R.array.MKS, android.R.layout.simple_spinner_dropdown_item);
-    mSpinnerMKS.setAdapter(mSpinnerAdapterMKS);
-    mSpinnerAdapterMKSEn = ArrayAdapter.createFromResource(context, R.array.MKS, android.R.layout.simple_spinner_dropdown_item);
-    mSpinnerMKSEn.setAdapter(mSpinnerAdapterMKSEn);
-    mSpinnerMKS.setOnItemSelectedListener(spinnerSelectedItemHandle);
-    mSpinnerMKSEn.setOnItemSelectedListener(spinnerSelectedItemHandle);
+
   }
 
   @Override
@@ -65,25 +55,77 @@ public class PubFragment extends RoboFragment {
   }
 
   @Override
+  public void onDestroy() {
+    super.onDestroy();
+  }
+
+  @Override
   public void onResume() {
     super.onResume();
     // this.switchSpinnerItem(mSpinnerMKS);
   }
 
-  protected void switchSpinnerItem(AdapterView<?> spinner) {
-    // mSpinnerMKS.refreshDrawableState();
-    // mSpinnerMKSEn.refreshDrawableState();
-    // for (int i = 0; i < spinner.getCount(); i++) {
-    // mSpinnerMKS.getChildAt(i).setVisibility(View.VISIBLE);
-    // mSpinnerMKSEn.getChildAt(i).setVisibility(View.VISIBLE);
-    // }
-    View view = mSpinnerAdapterMKS.getView(0, null, null);
-    View dropDownView = mSpinnerAdapterMKS.getDropDownView(0, null, null);
-    ArrayList<View> touchables = mSpinnerMKS.getTouchables();
+  public void showSinnper() {
+    mSpinnerMKS.setVisibility(View.VISIBLE);
+    mSpinnerMKSEn.setVisibility(View.VISIBLE);
+    ConversionSpinnerSelectedItemHandle spinnerSelectedItemHandle = new ConversionSpinnerSelectedItemHandle();
+    mLeftCurResId = mLeftCurResId == 0 ? R.array.MKS_0 : mLeftCurResId;
+    ConversionArrayAdapter<CharSequence> adapterMKS =
+        ConversionArrayAdapter.createFromResource(context, mLeftCurResId, android.R.layout.simple_spinner_dropdown_item);
+    mSpinnerMKS.setAdapter(adapterMKS);
+    mRightCurResId = mRightCurResId == 0 ? R.array.MKS_1 : mRightCurResId;
+    ConversionArrayAdapter<CharSequence> adapterMKSEn =
+        ConversionArrayAdapter.createFromResource(context, mRightCurResId, android.R.layout.simple_spinner_dropdown_item);
+    mSpinnerMKSEn.setAdapter(adapterMKSEn);
+    mSpinnerMKS.setOnItemSelectedListener(spinnerSelectedItemHandle);
+    mSpinnerMKSEn.setOnItemSelectedListener(spinnerSelectedItemHandle);
+  }
+
+  protected void switchSpinnerItem(AdapterView<?> spinner, int position) {
     if (mSpinnerMKS == spinner) {
-      mSpinnerMKS.getSelectedView().setVisibility(View.INVISIBLE);
+      if (mLazySelect) {
+        mLazySelect = false;
+        return;
+      }
+      int mksSelectId = this.getMKSSelectId(mLeftCurResId, position);
+      mRightCurResId = this.getMKSResId(mLeftCurResId, position);
+      ConversionArrayAdapter<CharSequence> adapterMKS =
+          ConversionArrayAdapter.createFromResource(context, mRightCurResId, android.R.layout.simple_spinner_dropdown_item);
+      mSpinnerMKSEn.setAdapter(adapterMKS);
+      mSpinnerMKSEn.setSelection(mksSelectId);
+      mLazySelect = true;
     } else {
-      mSpinnerMKS.getSelectedView().setVisibility(View.INVISIBLE);
+      if (mLazySelect) {
+        mLazySelect = false;
+        return;
+      }
+      int mksSelectId = this.getMKSSelectId(mRightCurResId, position);
+      mLeftCurResId = this.getMKSResId(mRightCurResId, position);
+      ConversionArrayAdapter<CharSequence> adapterMKSEn =
+          ConversionArrayAdapter.createFromResource(context, mLeftCurResId, android.R.layout.simple_spinner_dropdown_item);
+      mSpinnerMKS.setAdapter(adapterMKSEn);
+      mSpinnerMKS.setSelection(mksSelectId);
+      mLazySelect = true;
+    }
+  }
+
+  private int getMKSResId(int curResId, int position) {
+    if (curResId == R.array.MKS_0) {
+      return position == 0 ? R.array.MKS_1 : R.array.MKS_2;
+    } else if (curResId == R.array.MKS_1) {
+      return position == 0 ? R.array.MKS_0 : R.array.MKS_2;
+    } else {
+      return position == 0 ? R.array.MKS_1 : R.array.MKS_0;
+    }
+  }
+
+  private int getMKSSelectId(int curResId, int position) {
+    if (curResId == R.array.MKS_0) {
+      return position == 0 ? 0 : 1;
+    } else if (curResId == R.array.MKS_1) {
+      return position == 0 ? 0 : 0;
+    } else {
+      return position == 0 ? 1 : 1;
     }
   }
 }

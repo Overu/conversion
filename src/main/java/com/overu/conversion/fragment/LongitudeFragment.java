@@ -7,6 +7,12 @@ import android.os.Bundle;
 public class LongitudeFragment extends PubFragment {
 
   @Override
+  public void onActivityCreated(Bundle savedInstanceState) {
+    super.onActivityCreated(savedInstanceState);
+    this.showSinnper();
+  }
+
+  @Override
   public void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
   }
