@@ -1,16 +1,13 @@
 package com.overu.conversion.toolutils;
 
-import com.google.inject.Inject;
 import com.google.inject.Singleton;
 
 import com.overu.conversion.R;
-import com.overu.conversion.expression.BaseExpression;
+import com.overu.conversion.expression.NoExpression;
 import com.overu.conversion.expression.Expression;
 
 import java.util.HashMap;
 import java.util.Map;
-
-import roboguice.inject.InjectResource;
 
 import android.content.Context;
 
@@ -21,7 +18,10 @@ public class Longitude extends ConversionType {
 
   @Override
   public double conver(double sourNum, String sourType, String targeType) {
-    return 0;
+    if (sourType.equals(targeType)) {
+      return sourNum;
+    }
+    return sourNum / longitude.get(sourType).operation(0) * longitude.get(targeType).operation(0);
   }
 
   @Override
@@ -32,26 +32,58 @@ public class Longitude extends ConversionType {
     String AU = longitudeMKS0[1];
     String km = longitudeMKS0[2];
     String m = longitudeMKS0[3];
-    // String dm = longitudeMKS0[4];
-    // String cm = longitudeMKS0[5];
-    // String mm = longitudeMKS0[6];
-    // String µm = longitudeMKS0[7];
-    // String nm = longitudeMKS0[8];
-    // String Å = longitudeMKS0[9];
+    this.setStandard(m);
+    String dm = longitudeMKS0[4];
+    String cm = longitudeMKS0[5];
+    String mm = longitudeMKS0[6];
+    String µm = longitudeMKS0[7];
+    String nm = longitudeMKS0[8];
+    String Å = longitudeMKS0[9];
 
-    String[] longitudeMKSby0 = context.getResources().getStringArray(R.array.longitude_MKS_1);
-    String nmi = longitudeMKSby0[0];
-    String mi = longitudeMKSby0[1];
-    String fg = longitudeMKSby0[2];
-    String fm = longitudeMKSby0[3];
-    // String yd = longitudeMKSby0[4];
-    // String ft = longitudeMKSby0[5];
-    // String in = longitudeMKSby0[6];
+    String[] longitudeMKS1 = context.getResources().getStringArray(R.array.longitude_MKS_1);
+    String nmi = longitudeMKS1[0];
+    String mi = longitudeMKS1[1];
+    String fg = longitudeMKS1[2];
+    String fm = longitudeMKS1[3];
+    String yd = longitudeMKS1[4];
+    String ft = longitudeMKS1[5];
+    String in = longitudeMKS1[6];
 
-    // ly
+    String[] longitudeMKS2 = context.getResources().getStringArray(R.array.longitude_MKS_2);
+    String ml = longitudeMKS2[0];
+    String mz = longitudeMKS2[1];
+    String mc = longitudeMKS2[2];
+    String mcc = longitudeMKS2[3];
+    String mf = longitudeMKS2[4];
+    String mll = longitudeMKS2[5];
+    String mh = longitudeMKS2[6];
+
     longitude = new HashMap<String, Expression>();
-    longitude.put(ly + "-" + ly, new BaseExpression(1));
-    longitude.put(ly + "-" + AU, new BaseExpression(63239.6716738));
-    longitude.put(ly + "-" + km, new BaseExpression(300000 * 365 * 24 * 3600));
+    longitude.put(ly, new NoExpression(1.0570234E-16));
+    longitude.put(AU, new NoExpression(6.6845813E-12));
+    longitude.put(km, new NoExpression(0.001));
+    longitude.put(m, new NoExpression(1.0));
+    longitude.put(dm, new NoExpression(10.0));
+    longitude.put(cm, new NoExpression(100.0));
+    longitude.put(mm, new NoExpression(1000.0));
+    longitude.put(µm, new NoExpression(1000000.0));
+    longitude.put(nm, new NoExpression(1000000000.0));
+    longitude.put(Å, new NoExpression(10000000000.0));
+
+    longitude.put(nmi, new NoExpression(0.0000539957));
+    longitude.put(mi, new NoExpression(0.0000621371));
+    longitude.put(fg, new NoExpression(0.000497097));
+    longitude.put(fm, new NoExpression(0.0546806649));
+    longitude.put(yd, new NoExpression(0.1093613298));
+    longitude.put(ft, new NoExpression(0.3280839895));
+    longitude.put(in, new NoExpression(3.937007874));
+
+    longitude.put(ml, new NoExpression(0.0002));
+    longitude.put(mz, new NoExpression(0.03));
+    longitude.put(mc, new NoExpression(0.3));
+    longitude.put(mcc, new NoExpression(3.0));
+    longitude.put(mf, new NoExpression(30.0));
+    longitude.put(mll, new NoExpression(300.0));
+    longitude.put(mh, new NoExpression(3000.0));
   }
 }

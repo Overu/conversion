@@ -4,7 +4,20 @@ import com.google.inject.Inject;
 
 import com.overu.conversion.R;
 import com.overu.conversion.adapter.ConversionArrayAdapter;
+import com.overu.conversion.toolutils.ConversionType;
+import com.overu.conversion.toolutils.TypeFactory;
 import com.overu.conversion.view.ConversionSpinner;
+
+import android.view.View.OnClickListener;
+
+import android.content.Context;
+
+import android.view.inputmethod.InputMethodManager;
+
+import android.view.View.OnTouchListener;
+
+import android.view.MotionEvent;
+
 import roboguice.inject.InjectResource;
 import android.widget.CheckedTextView;
 import android.widget.TextView;
@@ -40,11 +53,25 @@ public class PubFragment extends RoboFragment {
 
   }
 
+  private OnTouchListener mConTouchHandle = new OnTouchListener() {
+
+    @Override
+    public boolean onTouch(View v, MotionEvent event) {
+      // if (v instanceof EditText) {
+      // EditText editText = (EditText) v;
+      // editText.requestFocus();
+      // editText.selectAll();
+      // }
+      return false;
+    }
+  };
+
   private OnFocusChangeListener mConTextFocusChangeHandle = new OnFocusChangeListener() {
 
     @Override
     public void onFocusChange(View v, boolean hasFocus) {
       mCurTextEdit = (EditText) v;
+      mCurTextView = (TextView) ((LinearLayout) mCurTextEdit.getParent()).getChildAt(1);
       if (hasFocus) {
         mCurTextEdit.addTextChangedListener(mConTextChangeHandle);
       } else {
@@ -58,6 +85,13 @@ public class PubFragment extends RoboFragment {
 
     @Override
     public void afterTextChanged(Editable s) {
+      if (s.toString().length() == 0) {
+        mCurConverNum = 0.0;
+      } else {
+        mCurConverNum = Double.parseDouble(s.toString());
+      }
+      mCurConverType = (String) mCurTextView.getTag();
+      PubFragment.this.conversionAll();
     }
 
     @Override
@@ -71,36 +105,66 @@ public class PubFragment extends RoboFragment {
 
   @InjectView(R.id.spinner_MKS)
   ConversionSpinner mSpinnerMKS;
+
   @InjectView(R.id.spinner_MKSEn)
   ConversionSpinner mSpinnerMKSEn;
+
   @InjectView(R.id.left_container)
   LinearLayout mLeftContainer;
   @InjectView(R.id.right_container)
   LinearLayout mRightContainer;
-
   @InjectResource(R.array.MKS_all)
   String[] mMSKAll;
-
   @Inject
   Application context;
+
   @Inject
   Resources resources;
   @Inject
   LayoutInflater layoutInflater;
+  @Inject
+  TypeFactory mTypeFactory;
 
   private int mLeftCurResId = 0;
   private int mRightCurResId = 0;
+
   private int mLeftCurContainerId = -1;
   private int mRightCurContainerId = -1;
   private EditText mCurTextEdit;
+  private TextView mCurTextView;
+  private double mCurConverNum;
+  private String mCurConverType;
+  private ConversionType mConverType;
+
+  public void conversionAll() {
+    this.conversionLeft();
+    this.conversionRight();
+  }
+
+  public void conversionLeft() {
+    if (mLeftCurContainerId != -1) {
+      this.conversion(true);
+    }
+  }
+
+  public void conversionRight() {
+    if (mRightCurContainerId != -1) {
+      this.conversion(false);
+    }
+  }
 
   public String getBaseMSK() {
+    return "";
+  }
+
+  public String getConverType() {
     return "";
   }
 
   @Override
   public void onActivityCreated(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
+    mConverType = mTypeFactory.getType(PubFragment.this.getConverType());
   }
 
   @Override
@@ -113,6 +177,8 @@ public class PubFragment extends RoboFragment {
     super.onDestroy();
     mLeftCurContainerId = -1;
     mRightCurContainerId = -1;
+    mCurConverNum = 0;
+    mCurConverType = "";
   }
 
   @Override
@@ -174,10 +240,33 @@ public class PubFragment extends RoboFragment {
       }
       CheckedTextView selectItem = (CheckedTextView) mSpinnerMKSEn.getSelectedView();
       if (selectItem == null) {
-        showView(0, false);
+        showView(1, false);
         return;
       }
       showView(this.getMSKPositionByName((String) selectItem.getText(), false), false);
+    }
+  }
+
+  private void conversion(boolean isLeft) {
+    if (mConverType == null) {
+      return;
+    }
+    LinearLayout lOrRcontaier = isLeft ? mLeftContainer : mRightContainer;
+    LinearLayout container = (LinearLayout) lOrRcontaier.getChildAt(0);
+    for (int i = 0; i < container.getChildCount(); i++) {
+      LinearLayout editTextContainer = (LinearLayout) container.getChildAt(i);
+      EditText converEditText = (EditText) editTextContainer.getChildAt(0);
+      TextView converTextView = (TextView) editTextContainer.getChildAt(1);
+      String targetConverType = (String) converTextView.getTag();
+      if (mCurConverType.equals(targetConverType)) {
+        continue;
+      }
+      if (mCurConverNum == 0.0) {
+        converEditText.setText("");
+        continue;
+      }
+      double conver = mConverType.conver(mCurConverNum, mCurConverType, targetConverType);
+      converEditText.setText(String.valueOf(conver));
     }
   }
 
@@ -195,6 +284,7 @@ public class PubFragment extends RoboFragment {
       LinearLayout conTextContainer = (LinearLayout) layoutInflater.inflate(R.layout.conversion_edittext_cell, null);
       EditText converEditText = (EditText) conTextContainer.findViewById(R.id.conver_input);
       converEditText.setOnFocusChangeListener(mConTextFocusChangeHandle);
+      converEditText.setOnTouchListener(mConTouchHandle);
       TextView converText = (TextView) conTextContainer.findViewById(R.id.conver_text);
       converText.setTag(key);
       converText.setText(names[j]);
@@ -243,12 +333,12 @@ public class PubFragment extends RoboFragment {
     if (id == -1) {
       return;
     }
-    ViewGroup converView = this.getConverView(id);
-    if (converView == null) {
-      return;
-    }
     if (isLeft) {
       if (mLeftCurContainerId == id) {
+        return;
+      }
+      ViewGroup converView = this.getConverView(id);
+      if (converView == null) {
         return;
       }
       View last = mLeftContainer.findViewById(R.id.conver_edittext_container);
@@ -257,8 +347,15 @@ public class PubFragment extends RoboFragment {
       }
       mLeftCurContainerId = id;
       mLeftContainer.addView(converView);
+      if (mCurConverNum != 0.0) {
+        this.conversionLeft();
+      }
     } else {
       if (mRightCurContainerId == id) {
+        return;
+      }
+      ViewGroup converView = this.getConverView(id);
+      if (converView == null) {
         return;
       }
       View last = mRightContainer.findViewById(R.id.conver_edittext_container);
@@ -267,6 +364,9 @@ public class PubFragment extends RoboFragment {
       }
       mRightCurContainerId = id;
       mRightContainer.addView(converView);
+      if (mCurConverNum != 0.0) {
+        this.conversionRight();
+      }
     }
   }
 }

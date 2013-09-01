@@ -29,8 +29,6 @@ public class ConversionModule extends AbstractModule {
 
     bindKey(ConversionType.class, R.string.longitude, Longitude.class);
     bindKey(ConversionType.class, R.string.area, Area.class);
-    // bind(ConversionType.class).annotatedWith(Names.named(R.string.longitude + "")).to(Longitude.class).in(Singleton.class);
-    // bind(ConversionType.class).annotatedWith(Names.named(R.string.area + "")).to(Area.class).in(Singleton.class);
 
     bind(new TypeLiteral<Set<Class<? extends ConversionType>>>() {
     }).toInstance(new HashSet<Class<? extends ConversionType>>() {
@@ -42,7 +40,5 @@ public class ConversionModule extends AbstractModule {
 
     bindKey(PubFragment.class, R.string.longitude, LongitudeFragment.class);
     bindKey(PubFragment.class, R.string.area, AreaFragment.class);
-    // bind(PubFragment.class).annotatedWith(Names.named(R.string.longitude + "")).to(LongitudeFragment.class).in(Singleton.class);
-    // bind(PubFragment.class).annotatedWith(Names.named(R.string.area + "")).to(AreaFragment.class).in(Singleton.class);
   }
 }

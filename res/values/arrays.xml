@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
     <string-array name="MKS_0">
         <item>公制</item>
         <item>市制</item>
@@ -18,6 +17,7 @@
         <item>英制</item>
         <item>市制</item>
     </string-array>
+    
     <string-array name="longitude_MKS_0">
         <item>ly</item>
         <item>AU</item>
@@ -58,7 +58,7 @@
         <item>英寻</item>
         <item>码</item>
         <item>英尺</item>
-        <item>英尺</item>
+        <item>英寸</item>
     </string-array>
     <string-array name="longitude_MKS_2">
         <item>ml</item>
@@ -77,6 +77,53 @@
         <item>分</item>
         <item>厘</item>
         <item>毫</item>
+    </string-array>
+    
+    <string-array name="area_MKS_0">
+        <item>km²</item>
+        <item>ha</item>
+        <item>are</item>
+        <item>m²</item>
+        <item>dm²</item>
+        <item>cm²</item>
+        <item>mm²</item>
+    </string-array>
+    <string-array name="area_MKS_cn_0">
+        <item>平方千米</item>
+        <item>公顷</item>
+        <item>公亩</item>
+        <item>平方米</item>
+        <item>平方分米</item>
+        <item>平方厘米</item>
+        <item>平方毫米</item>
+    </string-array>
+    <string-array name="area_MKS_1">
+        <item>mi²</item>
+        <item>ac</item>
+        <item>rd²</item>
+        <item>yd²</item>
+        <item>ft²</item>
+        <item>in²</item>
+    </string-array>
+    <string-array name="area_MKS_cn_1">
+        <item>平方英里</item>
+        <item>英亩</item>
+        <item>平方竿</item>
+        <item>平方码</item>
+        <item>平方英尺</item>
+        <item>平方英寸</item>
+    </string-array>
+    <string-array name="area_MKS_2">
+        <item>mq</item>
+        <item>mm</item>
+        <item>mpfc</item>
+        <item>mpfcc</item>
+    </string-array>
+    <string-array name="area_MKS_cn_2">
+        <item>顷</item>
+        <item>亩</item>
+        <item>平方尺</item>
+        <item>平方寸</item>
     </string-array>
 
 </resources>

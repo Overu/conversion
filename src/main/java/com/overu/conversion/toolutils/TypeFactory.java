@@ -32,6 +32,9 @@ public class TypeFactory {
 
   @SuppressWarnings("cast")
   public ConversionType getType(String type) {
+    if (type.equals("")) {
+      return null;
+    }
     ConversionType conType = null;
     int identifier = res.getIdentifier(type, "string", context.getPackageName());
     conType = (ConversionType) injector.getInstance(Key.get(ConversionType.class, Names.named(identifier + "")));
