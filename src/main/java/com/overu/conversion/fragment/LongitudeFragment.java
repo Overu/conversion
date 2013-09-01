@@ -7,6 +7,11 @@ import android.os.Bundle;
 public class LongitudeFragment extends PubFragment {
 
   @Override
+  public String getBaseMSK() {
+    return "longitude_MKS";
+  }
+
+  @Override
   public void onActivityCreated(Bundle savedInstanceState) {
     super.onActivityCreated(savedInstanceState);
     this.showSinnper();
