@@ -9,5 +9,8 @@
     
     <string name="longitude">longitude</string>
     <string name="area">area</string>
+    <string name="quality">quality</string>
+    <string name="volume">volume</string>
+    <string name="temperature">temperature</string>
     
 </resources>

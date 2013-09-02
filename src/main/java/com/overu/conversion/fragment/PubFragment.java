@@ -8,12 +8,6 @@ import com.overu.conversion.toolutils.ConversionType;
 import com.overu.conversion.toolutils.TypeFactory;
 import com.overu.conversion.view.ConversionSpinner;
 
-import android.view.View.OnClickListener;
-
-import android.content.Context;
-
-import android.view.inputmethod.InputMethodManager;
-
 import android.view.View.OnTouchListener;
 
 import android.view.MotionEvent;

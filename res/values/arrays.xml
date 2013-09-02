@@ -125,5 +125,121 @@
         <item>平方尺</item>
         <item>平方寸</item>
     </string-array>
+    
+    <string-array name="quality_MKS_0">
+        <item>ton</item>
+        <item>q.</item>
+        <item>kg</item>
+        <item>g</item>
+        <item>mg</item>
+        <item>µg</item>
+    </string-array>
+    <string-array name="quality_MKS_cn_0">
+        <item>吨</item>
+        <item>公担</item>
+        <item>千克</item>
+        <item>克</item>
+        <item>毫克</item>
+        <item>微克</item>
+    </string-array>
+    <string-array name="quality_MKS_1">
+        <item>lb</item>
+        <item>oz</item>
+        <item>ct</item>
+        <item>gr</item>
+        <item>lt</item>
+        <item>st</item>
+        <item>lh</item>
+        <item>sh</item>
+        <item>yg</item>
+        <item>dr</item>
+    </string-array>
+    <string-array name="quality_MKS_cn_1">
+        <item>磅</item>
+        <item>盎司</item>
+        <item>克拉</item>
+        <item>格令</item>
+        <item>长吨</item>
+        <item>短吨</item>
+        <item>英担</item>
+        <item>美担</item>
+        <item>英石</item>
+        <item>打兰</item>
+    </string-array>
+    <string-array name="quality_MKS_2">
+        <item>md</item>
+        <item>mj</item>
+        <item>mm</item>
+        <item>mq</item>
+    </string-array>
+    <string-array name="quality_MKS_cn_2">
+        <item>担</item>
+        <item>斤</item>
+        <item>两</item>
+        <item>钱</item>
+    </string-array>
+    
+    <string-array name="volume_MKS_0">
+        <item>m³</item>
+        <item>hL</item>
+        <item>L</item>
+        <item>dm³</item>
+        <item>dL</item>
+        <item>cL</item>
+        <item>mL</item>
+        <item>cm³</item>
+        <item>mm³</item>
+    </string-array>
+    <string-array name="volume_MKS_cn_0">
+        <item>立方米</item>
+        <item>公石/百升</item>
+        <item>升</item>
+        <item>立方分米</item>
+        <item>分升</item>
+        <item>厘升</item>
+        <item>毫升</item>
+        <item>立方厘米</item>
+        <item>立方毫米</item>
+    </string-array>
+    
+    <string-array name="volume_MKS_1">
+        <item>yd³</item>
+        <item>ft³</item>
+        <item>in³</item>
+        <item>UK gal</item>
+        <item>US gal</item>
+        <item>myc</item>
+        <item>bbl</item>
+        <item>c</item>
+        <item>fl oz</item>
+        <item>tsp</item>
+    </string-array>
+    <string-array name="volume_MKS_cn_1">
+        <item>立方码</item>
+        <item>立方英尺</item>
+        <item>立方英寸</item>
+        <item>英加仑</item>
+        <item>美加仑</item>
+        <item>亩英尺</item>
+        <item>桶</item>
+        <item>杯</item>
+        <item>液盎司</item>
+        <item>茶匙</item>
+    </string-array>
+    
+    <string-array name="temperature_MKS_0">
+        <item>°C</item>
+        <item>°F</item>
+        <item>K</item>
+        <item>°Ra</item>
+        <item>°Re</item>
+    </string-array>
+    <string-array name="temperature_MKS_cn_0">
+        <item>摄氏度</item>
+        <item>华氏度</item>
+        <item>开尔文</item>
+        <item>兰氏度</item>
+        <item>列氏度</item>
+    </string-array>
 
 </resources>
