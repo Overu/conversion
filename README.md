@@ -1,8 +1,13 @@
 conversion
 ==========
 利用RobeGuice实现的一个简单的单位换算的小应用。
+
+
 支持Maven。
+
+
 添加Repository
+```xml
 <repositories>
   <repository>
     <id>sonatype-nexus-snapshots</id>
@@ -24,3 +29,4 @@ conversion
     </snapshots>
   </repository>
 </repositories>
+```
