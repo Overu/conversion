@@ -8,6 +8,8 @@ import com.overu.conversion.toolutils.ConversionType;
 import com.overu.conversion.toolutils.TypeFactory;
 import com.overu.conversion.view.ConversionSpinner;
 
+import java.text.DecimalFormat;
+
 import android.view.View.OnTouchListener;
 
 import android.view.MotionEvent;
@@ -79,13 +81,17 @@ public class PubFragment extends RoboFragment {
 
     @Override
     public void afterTextChanged(Editable s) {
-      if (s.toString().length() == 0) {
+      try {
+        if (s.toString().length() == 0) {
+          mCurConverNum = 0.0;
+        } else {
+          mCurConverNum = Double.parseDouble(s.toString());
+        }
+        mCurConverType = (String) mCurTextView.getTag();
+        PubFragment.this.conversionAll();
+      } catch (NumberFormatException e) {
         mCurConverNum = 0.0;
-      } else {
-        mCurConverNum = Double.parseDouble(s.toString());
       }
-      mCurConverType = (String) mCurTextView.getTag();
-      PubFragment.this.conversionAll();
     }
 
     @Override
@@ -119,6 +125,10 @@ public class PubFragment extends RoboFragment {
   @Inject
   TypeFactory mTypeFactory;
 
+  public static DecimalFormat moreThan0 = new DecimalFormat("0.####E0");
+  public static DecimalFormat lessThan0 = new DecimalFormat("0.0000E0");
+  public static DecimalFormat baseFormat = new DecimalFormat("0.###");
+
   private int mLeftCurResId = 0;
   private int mRightCurResId = 0;
 
@@ -129,6 +139,9 @@ public class PubFragment extends RoboFragment {
   private double mCurConverNum;
   private String mCurConverType;
   private ConversionType mConverType;
+
+  public void clearText() {
+  }
 
   public void conversionAll() {
     this.conversionLeft();
@@ -145,6 +158,40 @@ public class PubFragment extends RoboFragment {
     if (mRightCurContainerId != -1) {
       this.conversion(false);
     }
+  }
+
+  public String formatDouble(double source) {
+    String target = null;
+    do {
+      if (source > 0) {
+        if (source > 999999) {
+          target = moreThan0.format(source);
+          break;
+        }
+        if (source < 1) {
+          target = lessThan0.format(source);
+          break;
+        }
+        if (source < 999999 && source > 1) {
+          target = baseFormat.format(source);
+          break;
+        }
+      } else {
+        if (source < -999999) {
+          target = moreThan0.format(source);
+          break;
+        }
+        if (source > -1) {
+          target = lessThan0.format(source);
+          break;
+        }
+        if (source > -999999 && source < -1) {
+          target = baseFormat.format(source);
+          break;
+        }
+      }
+    } while (false);
+    return target;
   }
 
   public String getBaseMSK() {
@@ -186,11 +233,11 @@ public class PubFragment extends RoboFragment {
     ConversionSpinnerSelectedItemHandle spinnerSelectedItemHandle = new ConversionSpinnerSelectedItemHandle();
     mLeftCurResId = mLeftCurResId == 0 ? R.array.MKS_0 : mLeftCurResId;
     ConversionArrayAdapter<CharSequence> adapterMKS =
-        ConversionArrayAdapter.createFromResource(context, mLeftCurResId, android.R.layout.simple_spinner_dropdown_item);
+        ConversionArrayAdapter.createFromResource(context, mLeftCurResId, R.layout.conversion_spinner_cell);
     mSpinnerMKS.setAdapter(adapterMKS);
     mRightCurResId = mRightCurResId == 0 ? R.array.MKS_1 : mRightCurResId;
     ConversionArrayAdapter<CharSequence> adapterMKSEn =
-        ConversionArrayAdapter.createFromResource(context, mRightCurResId, android.R.layout.simple_spinner_dropdown_item);
+        ConversionArrayAdapter.createFromResource(context, mRightCurResId, R.layout.conversion_spinner_cell);
     mSpinnerMKSEn.setAdapter(adapterMKSEn);
     mSpinnerMKS.setOnItemSelectedListener(spinnerSelectedItemHandle);
     mSpinnerMKSEn.setOnItemSelectedListener(spinnerSelectedItemHandle);
@@ -212,7 +259,7 @@ public class PubFragment extends RoboFragment {
         mRightCurResId = rightCurResId;
         int mksSelectId = this.getMKSSelectId(mLeftCurResId, position);
         ConversionArrayAdapter<CharSequence> adapterMKS =
-            ConversionArrayAdapter.createFromResource(context, mRightCurResId, android.R.layout.simple_spinner_dropdown_item);
+            ConversionArrayAdapter.createFromResource(context, mRightCurResId, R.layout.conversion_spinner_cell);
         mSpinnerMKSEn.setAdapter(adapterMKS);
         mSpinnerMKSEn.setSelection(mksSelectId);
       }
@@ -228,7 +275,7 @@ public class PubFragment extends RoboFragment {
         mLeftCurResId = leftCurResId;
         int mksSelectId = this.getMKSSelectId(mRightCurResId, position);
         ConversionArrayAdapter<CharSequence> adapterMKSEn =
-            ConversionArrayAdapter.createFromResource(context, mLeftCurResId, android.R.layout.simple_spinner_dropdown_item);
+            ConversionArrayAdapter.createFromResource(context, mLeftCurResId, R.layout.conversion_spinner_cell);
         mSpinnerMKS.setAdapter(adapterMKSEn);
         mSpinnerMKS.setSelection(mksSelectId);
       }
@@ -245,6 +292,9 @@ public class PubFragment extends RoboFragment {
     if (mConverType == null) {
       return;
     }
+    if (mCurConverType == null || mCurConverType.equals("")) {
+      mCurConverType = mConverType.getStandard();
+    }
     LinearLayout lOrRcontaier = isLeft ? mLeftContainer : mRightContainer;
     LinearLayout container = (LinearLayout) lOrRcontaier.getChildAt(0);
     for (int i = 0; i < container.getChildCount(); i++) {
@@ -260,7 +310,7 @@ public class PubFragment extends RoboFragment {
         continue;
       }
       double conver = mConverType.conver(mCurConverNum, mCurConverType, targetConverType);
-      converEditText.setText(String.valueOf(conver));
+      converEditText.setText(this.formatDouble(conver));
     }
   }
 

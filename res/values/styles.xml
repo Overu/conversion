@@ -8,11 +8,13 @@
 
     <!-- Application theme. -->
     <style name="AppTheme" parent="android:Theme.Holo.Light">
-        <item name="android:dropDownListViewStyle">@style/MyDropDownNav</item>
+        <!-- <item name="android:dropDownListViewStyle">@style/MyDropDownNav</item> -->
     </style>
     
     <!-- 下拉导航外部按钮的样式 -->
     <style name="MyDropDownNav" parent="android:style/Widget.Holo.Light.Spinner">
+        <item name="android:textColor">@android:color/darker_gray</item>
+        <item name="android:columnWidth">50dp</item>
     </style> 
 
 </resources>

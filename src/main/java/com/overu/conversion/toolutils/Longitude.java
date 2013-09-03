@@ -70,20 +70,20 @@ public class Longitude extends ConversionType {
     longitude.put(nm, new NoExpression(1000000000.0));
     longitude.put(Å, new NoExpression(10000000000.0));
 
-    longitude.put(nmi, new NoExpression(0.0000539957));
-    longitude.put(mi, new NoExpression(0.0000621371));
-    longitude.put(fg, new NoExpression(0.000497097));
-    longitude.put(fm, new NoExpression(0.0546806649));
-    longitude.put(yd, new NoExpression(0.1093613298));
-    longitude.put(ft, new NoExpression(0.3280839895));
-    longitude.put(in, new NoExpression(3.937007874));
+    longitude.put(nmi, new NoExpression(0.0005399568));
+    longitude.put(mi, new NoExpression(0.0006213712));
+    longitude.put(fg, new NoExpression(0.0049709695));
+    longitude.put(fm, new NoExpression(0.5468066492));
+    longitude.put(yd, new NoExpression(1.0936132983));
+    longitude.put(ft, new NoExpression(3.280839895));
+    longitude.put(in, new NoExpression(39.3700787402));
 
-    longitude.put(ml, new NoExpression(0.0002));
-    longitude.put(mz, new NoExpression(0.03));
-    longitude.put(mc, new NoExpression(0.3));
-    longitude.put(mcc, new NoExpression(3.0));
-    longitude.put(mf, new NoExpression(30.0));
-    longitude.put(mll, new NoExpression(300.0));
-    longitude.put(mh, new NoExpression(3000.0));
+    longitude.put(ml, new NoExpression(0.002));
+    longitude.put(mz, new NoExpression(0.3));
+    longitude.put(mc, new NoExpression(3.0));
+    longitude.put(mcc, new NoExpression(30.0));
+    longitude.put(mf, new NoExpression(300.0));
+    longitude.put(mll, new NoExpression(3000.0));
+    longitude.put(mh, new NoExpression(30000.0));
   }
 }

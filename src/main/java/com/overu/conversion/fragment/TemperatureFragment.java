@@ -22,11 +22,16 @@ public class TemperatureFragment extends PubFragment {
   @Override
   public void onActivityCreated(Bundle savedInstanceState) {
     super.onActivityCreated(savedInstanceState);
-    showView(0);
   }
 
   @Override
   public void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
+  }
+
+  @Override
+  public void onResume() {
+    super.onResume();
+    showView(0);
   }
 }
