@@ -7,13 +7,19 @@ import com.google.inject.name.Names;
 
 import com.overu.conversion.fragment.AreaFragment;
 import com.overu.conversion.fragment.LongitudeFragment;
+import com.overu.conversion.fragment.PowerFragment;
+import com.overu.conversion.fragment.PressureFragment;
 import com.overu.conversion.fragment.PubFragment;
 import com.overu.conversion.fragment.QualityFragment;
+import com.overu.conversion.fragment.ReactiveheatFragment;
 import com.overu.conversion.fragment.TemperatureFragment;
 import com.overu.conversion.fragment.VolumeFragment;
 import com.overu.conversion.toolutils.Area;
 import com.overu.conversion.toolutils.ConversionType;
 import com.overu.conversion.toolutils.Longitude;
+import com.overu.conversion.toolutils.Power;
+import com.overu.conversion.toolutils.Pressure;
+import com.overu.conversion.toolutils.Reactiveheat;
 import com.overu.conversion.toolutils.Temperature;
 import com.overu.conversion.toolutils.TypeFactory;
 import com.overu.conversion.toolutils.Quality;
@@ -38,6 +44,9 @@ public class ConversionModule extends AbstractModule {
     bindKey(ConversionType.class, R.string.quality, Quality.class);
     bindKey(ConversionType.class, R.string.volume, Volume.class);
     bindKey(ConversionType.class, R.string.temperature, Temperature.class);
+    bindKey(ConversionType.class, R.string.pressure, Pressure.class);
+    bindKey(ConversionType.class, R.string.power, Power.class);
+    bindKey(ConversionType.class, R.string.reactiveheat, Reactiveheat.class);
 
     bind(new TypeLiteral<Set<Class<? extends ConversionType>>>() {
     }).toInstance(new HashSet<Class<? extends ConversionType>>() {
@@ -47,6 +56,9 @@ public class ConversionModule extends AbstractModule {
         add(Volume.class);
         add(Quality.class);
         add(Temperature.class);
+        add(Pressure.class);
+        add(Power.class);
+        add(Reactiveheat.class);
       }
     });
 
@@ -55,5 +67,8 @@ public class ConversionModule extends AbstractModule {
     bindKey(PubFragment.class, R.string.volume, VolumeFragment.class);
     bindKey(PubFragment.class, R.string.quality, QualityFragment.class);
     bindKey(PubFragment.class, R.string.temperature, TemperatureFragment.class);
+    bindKey(PubFragment.class, R.string.pressure, PressureFragment.class);
+    bindKey(PubFragment.class, R.string.power, PowerFragment.class);
+    bindKey(PubFragment.class, R.string.reactiveheat, ReactiveheatFragment.class);
   }
 }
