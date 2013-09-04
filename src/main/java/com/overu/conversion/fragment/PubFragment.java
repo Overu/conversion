@@ -172,7 +172,7 @@ public class PubFragment extends RoboFragment {
           target = lessThan0.format(source);
           break;
         }
-        if (source < 999999 && source > 1) {
+        if (source < 999999 && source >= 1) {
           target = baseFormat.format(source);
           break;
         }
@@ -185,7 +185,7 @@ public class PubFragment extends RoboFragment {
           target = lessThan0.format(source);
           break;
         }
-        if (source > -999999 && source < -1) {
+        if (source > -999999 && source <= -1) {
           target = baseFormat.format(source);
           break;
         }
@@ -245,7 +245,7 @@ public class PubFragment extends RoboFragment {
 
   public void showView() {
     showView(0, true);
-    showView(1, true);
+    showView(1, false);
   }
 
   public void showView(int id) {
@@ -303,6 +303,10 @@ public class PubFragment extends RoboFragment {
       TextView converTextView = (TextView) editTextContainer.getChildAt(1);
       String targetConverType = (String) converTextView.getTag();
       if (mCurConverType.equals(targetConverType)) {
+        String text = converEditText.getText().toString();
+        if ((text == null || text.equals("")) && mCurConverNum != 0) {
+          converEditText.setText(this.formatDouble(mCurConverNum));
+        }
         continue;
       }
       if (mCurConverNum == 0.0) {

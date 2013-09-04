@@ -12,4 +12,8 @@
     <string name="quality">quality</string>
     <string name="volume">volume</string>
     <string name="temperature">temperature</string>
+    <string name="pressure">pressure</string>
+    <string name="power">power</string>
+    <string name="reactiveheat">reactiveheat</string>
+    <string name="time">time</string>
 </resources>
