@@ -4,17 +4,41 @@
         Base application theme, dependent on API level. This theme is replaced
         by AppBaseTheme from res/values-vXX/styles.xml on newer devices.
     -->
-    <style name="Theme" parent="android:Theme"></style>
+    <!-- <style name="Theme" parent="android:Theme"></style> -->
+
 
     <!-- Application theme. -->
+    <!--
     <style name="AppTheme" parent="android:Theme.Holo.Light">
-        <!-- <item name="android:dropDownListViewStyle">@style/MyDropDownNav</item> -->
+        <item name="android:dropDownListViewStyle">@style/MyDropDownNav</item>
     </style>
-    
+    -->
+
+
     <!-- 下拉导航外部按钮的样式 -->
+    <!--
     <style name="MyDropDownNav" parent="android:style/Widget.Holo.Light.Spinner">
         <item name="android:textColor">@android:color/darker_gray</item>
         <item name="android:columnWidth">50dp</item>
-    </style> 
+    </style>
+    -->
+
+    <style name="AppBaseTheme" parent="android:Theme.Light"></style>
+
+    <style name="AppTheme" parent="AppBaseTheme">
+        <item name="android:windowBackground">@color/background_window</item>
+        <item name="android:actionBarStyle">@style/ActionBarStyle</item>
+    </style>
+
+    <style name="ActionBarStyle" parent="@android:style/Widget.Holo.Light.ActionBar.Solid.Inverse">
+        <item name="android:icon">@drawable/ic_launcher_actionbar</item>
+        <item name="android:background">#FF666666</item>
+    </style>
+
+    <style name="MyDropDownNav" parent="android:style/Widget.Holo.Light.Spinner">
+        <item name="android:textColor">@android:color/darker_gray</item>
+        <item name="android:columnWidth">50dp</item>
+        <item name="android:background">@android:color/white</item>
+    </style>
 
 </resources>
